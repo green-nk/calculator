@@ -26,12 +26,21 @@ function operate(a, b, operator) {
     return result;
 };
 
+let number = "";
+let otherNumber = "";
+let operator;
+let isOperatorPressed = false;
+
 const digitContainer = document.querySelector(".digits");
 for (let i = 0; i < 10; i++) {
     const btn = document.createElement("button");
     btn.innerText = i;
+    btn.addEventListener("click", () => {
+        if (!isOperatorPressed) number += btn.innerText;
+        else otherNumber += btn.innerText;
+    });
 
-    digitContainer.appendChild(btn)
+    digitContainer.appendChild(btn);
 }
 
 const operandContainer = document.querySelector(".operands");
@@ -41,7 +50,3 @@ for (let i = 0; i < OPERANDS.length; i++) {
 
     operandContainer.appendChild(btn);
 }
-
-let number;
-let otherNumber;
-let operator;
