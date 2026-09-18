@@ -26,10 +26,17 @@ function operate(a, b, operator) {
     return result;
 };
 
+const INITIAL_DISPLAY = "-------------------";
 let number = "";
 let otherNumber = "";
 let operator;
 let isOperatorPressed = false;
+
+const displayContainer = document.querySelector(".display");
+const displayPara = document.createElement('p');
+displayPara.innerText = INITIAL_DISPLAY;
+
+displayContainer.appendChild(displayPara);
 
 const digitContainer = document.querySelector(".digits");
 for (let i = 0; i < 10; i++) {
@@ -39,10 +46,8 @@ for (let i = 0; i < 10; i++) {
         if (!isOperatorPressed) number += btn.innerText;
         else otherNumber += btn.innerText;
 
-        const displayContainer = document.querySelector(".display");
-        if (!displayContainer.hasChildNodes()) displayContainer.appendChild(document.createElement('p'));
-
         const displayPara = document.querySelector(".display p");
+        if (displayPara.textContent == INITIAL_DISPLAY) displayPara.innerText = "";
         displayPara.innerText += btn.innerText;
     });
 
