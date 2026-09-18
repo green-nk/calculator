@@ -1,5 +1,4 @@
-const OPERANDS = ['+', '-', '*', '/'];
-const FUNCTIONALS = ['=', 'c'];
+const SYMBOLS = ['+', '-', '*', '/', '=', 'ac'];
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -29,62 +28,79 @@ function operate(a, b, operator) {
     return result;
 };
 
+function setupDisplay() {
+    const displayContainer = document.querySelector(".display");
+    const displayPara = document.createElement('p');
+    displayPara.innerText = 0;
+
+    displayContainer.appendChild(displayPara);
+};
+
+function setupDigits() {
+    const MAX_DIGIT = 10;
+    const digitContainer = document.querySelector(".digits");
+
+    function handleDigit(event) {
+        const displayPara = document.querySelector(".display p");
+
+        if (!isOperatorPressed && !number || isOperatorPressed && !otherNumber) {
+            displayPara.innerText = "";
+        }
+        
+        const digit = event.currentTarget.textContent;
+        displayPara.innerText += digit;
+
+        if (!isOperatorPressed) number += digit;
+        else otherNumber += digit;
+    };
+
+    for (let i = 0; i < MAX_DIGIT; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = i;
+        btn.addEventListener("click", handleDigit);
+    
+        digitContainer.appendChild(btn);
+    }
+};
+
+function setupSymbols() {
+    const symbolContainer = document.querySelector(".symbols");
+
+    function handleSymbol(event) {
+        const symbol = event.currentTarget.textContent;
+        
+        switch (symbol) {
+            case '=':
+                document.querySelector(".display p").innerText = operate(+number, +otherNumber, operator);
+                
+                number = "";
+                otherNumber = "";
+                operator = "";
+                isOperatorPressed = false;
+
+                break;
+            case "ac":
+                break;
+            default:
+                isOperatorPressed = true;
+                operator = event.currentTarget.textContent;
+        }
+    };
+    
+    for (let i = 0; i < SYMBOLS.length; i++) {
+        const btn = document.createElement("button");
+        btn.innerText = SYMBOLS[i];
+        btn.addEventListener("click", handleSymbol);
+        
+        symbolContainer.appendChild(btn);
+    }
+};
+
 let number = "";
 let otherNumber = "";
 let operator = "";
 let isOperatorPressed = false;
 
-const displayContainer = document.querySelector(".display");
-const displayPara = document.createElement('p');
-displayPara.innerText = 0;
-
-displayContainer.appendChild(displayPara);
-
-const digitContainer = document.querySelector(".digits");
-for (let i = 0; i < 10; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = i;
-    btn.addEventListener("click", () => {
-        const displayPara = document.querySelector(".display p");
-        if (!isOperatorPressed && !number || isOperatorPressed && !otherNumber) displayPara.innerText = "";
-        displayPara.innerText += btn.innerText;
-
-        if (!isOperatorPressed) number += btn.innerText;
-        else otherNumber += btn.innerText;
-    });
-
-    digitContainer.appendChild(btn);
-}
-
-const symbolContainer = document.querySelector(".symbols");
-for (let i = 0; i < OPERANDS.length; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = OPERANDS[i];
-    btn.addEventListener("click", () => {
-        isOperatorPressed = true;
-        operator = btn.innerText;
-    });
-
-    symbolContainer.appendChild(btn);
-}
-
-for (let i = 0; i < FUNCTIONALS.length; i++) {
-    const btn = document.createElement("button");
-    btn.innerText = FUNCTIONALS[i];
-    btn.addEventListener("click", () => {
-        switch (btn.textContent) {
-            case 'c':
-                break;
-            default:
-                const result = operate(+number, +otherNumber, operator);
-                document.querySelector(".display p").innerText = result;
-
-                number = "";
-                otherNumber = "";
-                operator = "";
-                isOperatorPressed = false;
-        }
-    });
-    
-    symbolContainer.appendChild(btn);
-}
+setupDisplay();
+setupDigits();
+setupSymbols();
