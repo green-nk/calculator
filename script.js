@@ -77,6 +77,11 @@ for (let i = 0; i < FUNCTIONALS.length; i++) {
             default:
                 const result = operate(+number, +otherNumber, operator);
                 alert(result);
+
+                number = "";
+                otherNumber = "";
+                operator = "";
+                isOperatorPressed = false;
         }
     });
     
