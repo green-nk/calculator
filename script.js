@@ -77,7 +77,7 @@ for (let i = 0; i < FUNCTIONALS.length; i++) {
                 break;
             default:
                 const result = operate(+number, +otherNumber, operator);
-                alert(result);
+                document.querySelector(".display p").innerText = result;
 
                 number = "";
                 otherNumber = "";
