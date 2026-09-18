@@ -38,6 +38,12 @@ for (let i = 0; i < 10; i++) {
     btn.addEventListener("click", () => {
         if (!isOperatorPressed) number += btn.innerText;
         else otherNumber += btn.innerText;
+
+        const displayContainer = document.querySelector(".display");
+        if (!displayContainer.hasChildNodes()) displayContainer.appendChild(document.createElement('p'));
+
+        const displayPara = document.querySelector(".display p");
+        displayPara.innerText += btn.innerText;
     });
 
     digitContainer.appendChild(btn);
