@@ -28,6 +28,13 @@ function operate(a, b, operator) {
     return result;
 };
 
+function reset() {
+    number = "";
+    otherNumber = "";
+    operator = "";
+    isOperatorPressed = false; 
+};
+
 function setupDisplay() {
     const displayContainer = document.querySelector(".display");
     const displayPara = document.createElement('p');
@@ -72,14 +79,11 @@ function setupSymbols() {
         switch (symbol) {
             case '=':
                 document.querySelector(".display p").innerText = operate(+number, +otherNumber, operator);
-                
-                number = "";
-                otherNumber = "";
-                operator = "";
-                isOperatorPressed = false;
-
+                reset();                
                 break;
             case "ac":
+                reset();
+                document.querySelector(".display p").innerText = 0;
                 break;
             default:
                 isOperatorPressed = true;
