@@ -1,4 +1,6 @@
-const OPERANDS = ['+', '-', '*', '/', '=', "c"]
+const OPERANDS = ['+', '-', '*', '/'];
+const FUNCTIONALS = ['=', 'c'];
+const INITIAL_DISPLAY = "-------------------";
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -6,7 +8,7 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 function operate(a, b, operator) {
-    let result;  
+    let result;
 
     switch (operator) {
         case '+':
@@ -26,7 +28,6 @@ function operate(a, b, operator) {
     return result;
 };
 
-const INITIAL_DISPLAY = "-------------------";
 let number = "";
 let otherNumber = "";
 let operator;
@@ -54,10 +55,30 @@ for (let i = 0; i < 10; i++) {
     digitContainer.appendChild(btn);
 }
 
-const operandContainer = document.querySelector(".operands");
+const symbolContainer = document.querySelector(".symbols");
 for (let i = 0; i < OPERANDS.length; i++) {
     const btn = document.createElement("button");
     btn.innerText = OPERANDS[i];
+    btn.addEventListener("click", () => {
+        isOperatorPressed = true;
+        operator = btn.innerText;
+    });
 
-    operandContainer.appendChild(btn);
+    symbolContainer.appendChild(btn);
+}
+
+for (let i = 0; i < FUNCTIONALS.length; i++) {
+    const btn = document.createElement("button");
+    btn.innerText = FUNCTIONALS[i];
+    btn.addEventListener("click", () => {
+        switch (btn.textContent) {
+            case 'c':
+                break;
+            default:
+                const result = operate(+number, +otherNumber, operator);
+                alert(result);
+        }
+    });
+    
+    symbolContainer.appendChild(btn);
 }
