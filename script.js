@@ -33,7 +33,7 @@ function reset(symbol = "ac") {
     numDisplay = "0";
     number = "";
     
-    if (symbol = SYMBOLS.at(-1)) {
+    if (symbol == SYMBOLS.at(-1)) {
         otherNumber = "";
         operator = "";
         result = 0;
