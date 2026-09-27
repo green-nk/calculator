@@ -32,10 +32,12 @@ function operate(a, b, operator) {
 function reset(symbol = "ac") {
     numDisplay = "0";
     number = "";
-    otherNumber = "";
-    operator = "";
-
-    if (symbol == SYMBOLS.at(-1)) result = 0;
+    
+    if (symbol = SYMBOLS.at(-1)) {
+        otherNumber = "";
+        operator = "";
+        result = 0;
+    }
 };
 
 function setupDigits() {
@@ -49,8 +51,8 @@ function setupDigits() {
         numDisplay += digit;
         displayPara.innerText = numDisplay;
 
-        if (!operator) number += digit;
-        else otherNumber += digit;
+        if (!operator) number = numDisplay;
+        else otherNumber = numDisplay;
     };
 
     for (let i = 0; i < MAX_DIGIT; i++) {
@@ -70,7 +72,6 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
-            if (result) number = `${result}`;
             result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
 
@@ -82,10 +83,7 @@ function setupSymbols() {
             displayPara.innerText = numDisplay;
         };
 
-        function handleOperator(event) {
-            if (operator && otherNumber) handleEqual();
-            operator = event.currentTarget.textContent;
-        }
+        if (result) number = `${result}`;
 
         switch (symbol) {
             case '=':
@@ -95,7 +93,7 @@ function setupSymbols() {
                 handleAllClear();
                 break;
             default:
-                handleOperator(event);
+                operator = event.currentTarget.textContent;
         }
     };
     
