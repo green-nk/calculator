@@ -28,11 +28,13 @@ function operate(a, b, operator) {
     return result;
 };
 
-function reset(num = "") {
+function reset(symbol = "ac") {
     numDisplay = "0";
-    number = `${num}`;
+    number = "";
     otherNumber = "";
     operator = "";
+
+    if (symbol == SYMBOLS.at(-1)) result = 0;
 };
 
 function setupDigits() {
@@ -46,6 +48,8 @@ function setupDigits() {
         const digit = event.currentTarget.textContent;
         numDisplay += digit;
         displayPara.innerText = numDisplay;
+
+        if (result && !operator) result = 0;
 
         if (!operator) number += digit;
         else otherNumber += digit;
@@ -68,10 +72,10 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
-            let result = operate(+number, +otherNumber, operator);
+            result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
-            
-            reset(result);
+
+            reset('=');
         };
 
         function handleAllClear() {
@@ -104,6 +108,7 @@ let numDisplay = "0";
 let number = "";
 let otherNumber = "";
 let operator = "";
+let result = 0;
 
 setupDigits();
 setupSymbols();
