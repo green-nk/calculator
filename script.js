@@ -70,6 +70,7 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
+            if (result) number = `${result}`;
             result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
 
@@ -82,11 +83,7 @@ function setupSymbols() {
         };
 
         function handleOperator(event) {
-            if (number && otherNumber && operator) {
-                handleEqual();
-                number = result;
-            }
-
+            if (operator && otherNumber) handleEqual();
             operator = event.currentTarget.textContent;
         }
 
