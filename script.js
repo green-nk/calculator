@@ -29,15 +29,12 @@ function operate(a, b, operator) {
     return +result.toFixed(MAX_DIGIT);
 };
 
-function reset(symbol = "ac") {
-    numDisplay = "0";
+function reset() {
+    numDisplay = '0';
+    isOperatorPressed = false;
     number = "";
-    
-    if (symbol == SYMBOLS.at(-1)) {
-        otherNumber = "";
-        operator = "";
-        result = 0;
-    }
+    otherNumber = "";
+    operator = '+';
 };
 
 function setupDigits() {
@@ -45,13 +42,13 @@ function setupDigits() {
 
     function handleDigit(event) {
         const displayPara = document.querySelector(".display p");
-        if (numDisplay === "0" || (operator && !otherNumber)) numDisplay = "";
+        if (numDisplay == '0') numDisplay = "";
 
         const digit = event.currentTarget.textContent;
         numDisplay += digit;
         displayPara.innerText = numDisplay;
 
-        if (!operator) number = numDisplay;
+        if (!isOperatorPressed) number = numDisplay;
         else otherNumber = numDisplay;
     };
 
@@ -72,18 +69,18 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
-            result = operate(+number, +otherNumber, operator);
+            let result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
 
-            reset('=');
+            numDisplay = '0';
+            isOperatorPressed = false;
+            number = `${result}`;
         };
 
         function handleAllClear() {
             reset();
             displayPara.innerText = numDisplay;
         };
-
-        if (result) number = `${result}`;
 
         switch (symbol) {
             case '=':
@@ -94,6 +91,8 @@ function setupSymbols() {
                 break;
             default:
                 operator = event.currentTarget.textContent;
+                numDisplay = '0';
+                isOperatorPressed = true;
         }
     };
     
@@ -106,11 +105,11 @@ function setupSymbols() {
     }
 };
 
-let numDisplay = "0";
+let numDisplay = '0';
+let isOperatorPressed = false;
 let number = "";
 let otherNumber = "";
-let operator = "";
-let result = 0;
+let operator = '+';
 
 setupDigits();
 setupSymbols();
