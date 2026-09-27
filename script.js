@@ -49,8 +49,6 @@ function setupDigits() {
         numDisplay += digit;
         displayPara.innerText = numDisplay;
 
-        if (result && !operator) result = 0;
-
         if (!operator) number += digit;
         else otherNumber += digit;
     };
