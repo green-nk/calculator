@@ -32,7 +32,6 @@ function reset(symbol) {
     number = "";
     otherNumber = "";
     operator = "";
-    isOperatorPressed = false;
 
     if (symbol == SYMBOLS.at(-1)) numDisplay = "0";
 };
@@ -43,13 +42,13 @@ function setupDigits() {
 
     function handleDigit(event) {
         const displayPara = document.querySelector(".display p");
-        if (!isOperatorPressed && !number || isOperatorPressed && !otherNumber) numDisplay = "";
+        if (!operator && !number || operator && !otherNumber) numDisplay = "";
         
         const digit = event.currentTarget.textContent;
         numDisplay += digit;
         displayPara.innerText = numDisplay;
 
-        if (!isOperatorPressed) number += digit;
+        if (!operator) number += digit;
         else otherNumber += digit;
     };
 
@@ -79,7 +78,6 @@ function setupSymbols() {
                 displayPara.innerText = numDisplay;
                 break;
             default:
-                isOperatorPressed = true;
                 operator = event.currentTarget.textContent;
         }
     };
@@ -97,7 +95,6 @@ let numDisplay = "0";
 let number = "";
 let otherNumber = "";
 let operator = "";
-let isOperatorPressed = false;
 
 setupDigits();
 setupSymbols();
