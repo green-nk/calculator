@@ -72,7 +72,7 @@ function setupSymbols() {
             let result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
 
-            numDisplay = '0';
+            numDisplay = "";
             isOperatorPressed = false;
             number = `${result}`;
         };
@@ -91,7 +91,7 @@ function setupSymbols() {
                 break;
             default:
                 operator = event.currentTarget.textContent;
-                numDisplay = '0';
+                numDisplay = "";
                 isOperatorPressed = true;
         }
     };
