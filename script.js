@@ -81,6 +81,15 @@ function setupSymbols() {
             displayPara.innerText = numDisplay;
         };
 
+        function handleOperator(event) {
+            if (number && otherNumber && operator) {
+                handleEqual();
+                number = result;
+            }
+
+            operator = event.currentTarget.textContent;
+        }
+
         switch (symbol) {
             case '=':
                 handleEqual();
@@ -89,7 +98,7 @@ function setupSymbols() {
                 handleAllClear();
                 break;
             default:
-                operator = event.currentTarget.textContent;
+                handleOperator(event);
         }
     };
     
