@@ -1,4 +1,5 @@
 const SYMBOLS = ['+', '-', '*', '/', '=', 'ac'];
+const MAX_DIGIT = 10;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -25,7 +26,7 @@ function operate(a, b, operator) {
             alert(`OOPS! No support for ${operator}`);
     }
 
-    return result;
+    return +result.toFixed(MAX_DIGIT);
 };
 
 function reset(symbol = "ac") {
@@ -38,7 +39,6 @@ function reset(symbol = "ac") {
 };
 
 function setupDigits() {
-    const MAX_DIGIT = 10;
     const digitContainer = document.querySelector(".digits");
 
     function handleDigit(event) {
