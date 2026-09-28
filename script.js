@@ -10,9 +10,6 @@ function operate(a, b, operator) {
     let result;
 
     switch (operator) {
-        case '+':
-            result = add(a, b);
-            break;
         case '-':
             result = subtract(a, b);
             break;
@@ -23,7 +20,7 @@ function operate(a, b, operator) {
             result = divide(a, b);
             break;
         default:
-            alert(`OOPS! No support for ${operator}`);
+            result = add(a, b);
     }
 
     return +result.toFixed(MAX_DIGIT);
@@ -34,7 +31,7 @@ function reset() {
     isNumAssigned = false;
     number = "";
     otherNumber = "";
-    operator = '+';
+    operator = "";
 };
 
 function setupDigits() {
@@ -72,7 +69,7 @@ function setupSymbols() {
             let result = operate(+number, +otherNumber, operator);
             displayPara.innerText = result;
 
-            numDisplay = "";
+            if (operator) numDisplay = "";
             isNumAssigned = false;
             number = `${result}`;
         };
@@ -109,7 +106,7 @@ let numDisplay = '0';
 let isNumAssigned = false;
 let number = "";
 let otherNumber = "";
-let operator = '+';
+let operator = "";
 
 setupDigits();
 setupSymbols();
