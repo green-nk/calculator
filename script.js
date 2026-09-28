@@ -31,7 +31,7 @@ function operate(a, b, operator) {
 
 function reset() {
     numDisplay = '0';
-    isOperatorPressed = false;
+    isNumAssigned = false;
     number = "";
     otherNumber = "";
     operator = '+';
@@ -48,7 +48,7 @@ function setupDigits() {
         numDisplay += digit;
         displayPara.innerText = numDisplay;
 
-        if (!isOperatorPressed) number = numDisplay;
+        if (!isNumAssigned) number = numDisplay;
         else otherNumber = numDisplay;
     };
 
@@ -73,7 +73,7 @@ function setupSymbols() {
             displayPara.innerText = result;
 
             numDisplay = "";
-            isOperatorPressed = false;
+            isNumAssigned = false;
             number = `${result}`;
         };
 
@@ -90,9 +90,9 @@ function setupSymbols() {
                 handleAllClear();
                 break;
             default:
-                operator = event.currentTarget.textContent;
                 numDisplay = "";
-                isOperatorPressed = true;
+                isNumAssigned = true;
+                operator = event.currentTarget.textContent;
         }
     };
     
@@ -106,7 +106,7 @@ function setupSymbols() {
 };
 
 let numDisplay = '0';
-let isOperatorPressed = false;
+let isNumAssigned = false;
 let number = "";
 let otherNumber = "";
 let operator = '+';
