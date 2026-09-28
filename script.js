@@ -57,7 +57,7 @@ function setupDigits() {
             if (i == 1) groupDigitClass = "1st";
             else if (i == 4) groupDigitClass = "2nd";
             else if (i == 7) groupDigitClass = "3rd";
-            groupDigitContainer.classList.add(`${groupDigitClass}`);
+            groupDigitContainer.classList.add(`${groupDigitClass}-digit`);
         }
 
         const btn = document.createElement("button");

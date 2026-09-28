@@ -44,14 +44,14 @@ div.display p {
 
 div.btns {
     display: flex;
-    justify-content: center;
     flex-grow: 1;
 }
 
 div.btns .digits {
     display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
 }
 
 div.btns .symbols {
