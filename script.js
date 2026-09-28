@@ -1,4 +1,4 @@
-const SYMBOLS = ['+', '-', '*', '/', '=', 'ac'];
+const SYMBOLS = ["AC", '÷', '×', '-', '+', '='];
 const MAX_DIGIT = 10;
 
 const add = (a, b) => a + b;
@@ -13,10 +13,10 @@ function operate(a, b, operator) {
         case '-':
             result = subtract(a, b);
             break;
-        case '*':
+        case '×':
             result = multiply(a, b);
             break;
-        case '/':
+        case '÷':
             result = divide(a, b);
             break;
         default:
@@ -83,7 +83,7 @@ function setupSymbols() {
             case '=':
                 handleEqual();
                 break;
-            case "ac":
+            case "AC":
                 handleAllClear();
                 break;
             default:
@@ -101,7 +101,12 @@ function setupSymbols() {
     
     for (let i = 0; i < SYMBOLS.length; i++) {
         const btn = document.createElement("button");
-        btn.innerText = SYMBOLS[i];
+        const symbol = SYMBOLS[i];
+        btn.innerText = symbol;
+        
+        if (i == 0) btn.id = "ac";
+        else btn.classList.add("operand");
+
         btn.addEventListener("click", handleSymbol);
         
         symbolContainer.appendChild(btn);

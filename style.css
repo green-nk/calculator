@@ -29,7 +29,7 @@ div.calculator {
 
 div.display {
     padding: 8px 0;
-    height: 48px;
+    height: 54px;
     background-color: #ffffff;
     border: 1px solid #999999;
     display: flex;
@@ -67,4 +67,12 @@ button {
     border: 1px solid #cccccc;
     font-size: 20px;
     font-weight: 700;
+}
+
+#ac {
+    background-color: #dddddd;
+}
+
+button.operand {
+    background-color: #fecc00;
 }
