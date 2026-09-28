@@ -28,7 +28,7 @@ div.calculator {
 }
 
 div.display {
-    padding: 4px 0;
+    padding: 8px 0;
     height: 48px;
     background-color: #ffffff;
     border: 1px solid #999999;
@@ -40,4 +40,31 @@ div.display {
 div.display p {
     font-size: 24px;
     text-align: right;
+}
+
+div.btns {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+div.btns .digits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+div.btns .symbols {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+button {
+    height: 54px;
+    width: 54px;
+    border-radius: 12px;
+    border: 1px solid #cccccc;
+    font-size: 20px;
+    font-weight: 700;
 }
