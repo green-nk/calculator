@@ -4,7 +4,7 @@ const MAX_DIGIT = 10;
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+const divide = (a, b) => (b == 0) ? NaN : a / b;
 
 function operate(a, b, operator) {
     let result;
