@@ -1,4 +1,4 @@
-const SYMBOLS = ["AC", '÷', '×', '-', '+', '='];
+const SYMBOLS = ["AC", '÷', '×', '−', '+', '='];
 const MAX_DIGIT = 10;
 
 const add = (a, b) => a + b;
@@ -10,7 +10,7 @@ function operate(a, b, operator) {
     let result;
 
     switch (operator) {
-        case '-':
+        case '−':
             result = subtract(a, b);
             break;
         case '×':
@@ -49,12 +49,23 @@ function setupDigits() {
         else otherNumber = numDisplay;
     };
 
-    for (let i = 0; i < MAX_DIGIT; i++) {
+    for (let i = 0, groupDigitContainer; i < MAX_DIGIT; i++) {
+        if (i == 0 || i % 3 == 1) {
+            groupDigitContainer = document.createElement("div");
+            
+            let groupDigitClass = "0th";
+            if (i == 1) groupDigitClass = "1st";
+            else if (i == 4) groupDigitClass = "2nd";
+            else if (i == 7) groupDigitClass = "3rd";
+            groupDigitContainer.classList.add(`${groupDigitClass}`);
+        }
+
         const btn = document.createElement("button");
         btn.innerText = i;
         btn.addEventListener("click", handleDigit);
     
-        digitContainer.appendChild(btn);
+        groupDigitContainer.appendChild(btn);
+        digitContainer.prepend(groupDigitContainer);
     }
 };
 

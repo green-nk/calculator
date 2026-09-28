@@ -63,6 +63,7 @@ div.btns .symbols {
 button {
     height: 54px;
     width: 54px;
+    background-color: #fafafa;
     border-radius: 12px;
     border: 1px solid #cccccc;
     font-size: 20px;
