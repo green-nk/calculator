@@ -1,5 +1,6 @@
 const SYMBOLS = ["AC", '÷', '×', '−', '+', '='];
 const MAX_DIGIT = 10;
+const MAX_DIGIT_PER_ROW = SYMBOLS.length * 3;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -49,23 +50,12 @@ function setupDigits() {
         else otherNumber = numDisplay;
     };
 
-    for (let i = 0, groupDigitContainer; i < MAX_DIGIT; i++) {
-        if (i == 0 || i % 3 == 1) {
-            groupDigitContainer = document.createElement("div");
-            
-            let groupDigitClass = "0th";
-            if (i == 1) groupDigitClass = "1st";
-            else if (i == 4) groupDigitClass = "2nd";
-            else if (i == 7) groupDigitClass = "3rd";
-            groupDigitContainer.classList.add(`${groupDigitClass}-digit`);
-        }
-
+    for (let i = 0; i < MAX_DIGIT_PER_ROW; i++) {
         const btn = document.createElement("button");
         btn.innerText = i;
         btn.addEventListener("click", handleDigit);
     
-        groupDigitContainer.appendChild(btn);
-        digitContainer.prepend(groupDigitContainer);
+        digitContainer.appendChild(btn);
     }
 };
 
