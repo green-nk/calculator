@@ -36,9 +36,9 @@ function reset() {
     operator = "";
 };
 
-function removeActive() {
-    const activeOperand = document.querySelector(".active");
-    if (activeOperand) activeOperand.classList.remove("active");
+function setActive() {
+    const disabledOperand = document.querySelector("button:disabled");
+    if (disabledOperand) disabledOperand.disabled = false;
 }
 
 function formatNumDisplay(numString) {
@@ -91,7 +91,7 @@ function populateDigitGrid(digitContainer, handleDigit) {
             const digit = MAX_DIGIT - (MAX_DIGIT_PER_ROW * (i + 1)) + j
             btn.innerText = digit;
             
-            btn.addEventListener("click", removeActive);
+            btn.addEventListener("click", setActive);
             btn.addEventListener("click", handleDigit);
     
             digitContainer.appendChild(btn);
@@ -105,7 +105,7 @@ function populateDigitGrid(digitContainer, handleDigit) {
         if (i != 0) btn.classList.add("unused");
         else {
             btn.innerText = i;
-            btn.addEventListener("click", removeActive);
+            btn.addEventListener("click", setActive);
             btn.addEventListener("click", handleDigit);
         }
     
@@ -184,14 +184,14 @@ function setupSymbols() {
         const symbol = SYMBOLS[i];
 
         btn.innerText = symbol;
-        btn.addEventListener("click", removeActive);
+        btn.addEventListener("click", setActive);
 
         if (i == 0) btn.id = "ac";
         else btn.classList.add("symbol");
         btn.addEventListener("click", handleSymbol);
 
         if (i != 0 && i != SYMBOLS.length - 1) btn.addEventListener("click", () => {
-            btn.classList.add("active");
+            btn.disabled = true;
         });
 
         symbolContainer.appendChild(btn);
