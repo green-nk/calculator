@@ -42,20 +42,23 @@ function removeActive() {
 }
 
 function formatNumDisplay(num) {
-    let format = "";
+    const numSplit = num.split('.');
+    const whole = numSplit[0];
+    const decimal = (numSplit.length > 1) ? numSplit[1] : null;
 
+    let format = "";
     let j = -3;
-    let i = num.length - 1;
+    let i = whole.length - 1;
 
     while (i >= 0) {
-        if (i != num.length - 1) format = ',' + format;
-        format = num.slice(j, i + 1) + format;
+        if (i != whole.length - 1) format = ',' + format;
+        format = whole.slice(j, i + 1) + format;
 
         j -= 3;
         i -= 3;
     }
 
-    return format;
+    return (decimal != null) ? format + '.' + decimal : format;
 };
 
 function populateDigitGrid(digitContainer, handleDigit) {
