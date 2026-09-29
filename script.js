@@ -1,6 +1,7 @@
 const SYMBOLS = ["AC", '÷', '×', '−', '+', '='];
 const MAX_DIGIT = 10;
-const MAX_DIGIT_PER_ROW = SYMBOLS.length * 3;
+const MAX_DIGIT_PER_ROW = 3;
+const TOTAL_DIGIT = SYMBOLS.length * MAX_DIGIT_PER_ROW;
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -35,6 +36,45 @@ function reset() {
     operator = "";
 };
 
+function populateDigitGrid(digitContainer, handleDigit) {
+    const numRowUsed = Math.ceil(MAX_DIGIT / MAX_DIGIT_PER_ROW);
+    const numSkips = TOTAL_DIGIT - numRowUsed * MAX_DIGIT_PER_ROW;
+    
+    // Populate skip digits
+    for (let i = 0; i < numSkips; i++) {
+        const btn = document.createElement("button");
+        btn.classList.add("unused");
+    
+        digitContainer.appendChild(btn);
+    }
+    
+    // Populate numDigits 
+    for (let i = 0; i < numRowUsed - 1; i++) {
+        for (let j = 0; j < MAX_DIGIT_PER_ROW; j++) {
+            const btn = document.createElement("button");
+    
+            const digit = MAX_DIGIT - (MAX_DIGIT_PER_ROW * (i + 1)) + j
+            btn.innerText = digit;
+            btn.addEventListener("click", handleDigit);
+    
+            digitContainer.appendChild(btn);
+        }
+    }
+    
+    // Populate "0"
+    for (let i = 0; i < MAX_DIGIT_PER_ROW; i++) {
+        const btn = document.createElement("button");
+    
+        if (i != 0) btn.classList.add("unused");
+        else {
+            btn.innerText = i;
+            btn.addEventListener("click", handleDigit);
+        }
+    
+        digitContainer.appendChild(btn);
+    }
+};
+
 function setupDigits() {
     const digitContainer = document.querySelector(".digits");
 
@@ -50,13 +90,7 @@ function setupDigits() {
         else otherNumber = numDisplay;
     };
 
-    for (let i = 0; i < MAX_DIGIT_PER_ROW; i++) {
-        const btn = document.createElement("button");
-        btn.innerText = i;
-        btn.addEventListener("click", handleDigit);
-    
-        digitContainer.appendChild(btn);
-    }
+    populateDigitGrid(digitContainer, handleDigit);
 };
 
 function setupSymbols() {
@@ -107,7 +141,6 @@ function setupSymbols() {
         
         if (i == 0) btn.id = "ac";
         else btn.classList.add("operand");
-
         btn.addEventListener("click", handleSymbol);
         
         symbolContainer.appendChild(btn);

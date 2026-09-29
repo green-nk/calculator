@@ -77,6 +77,10 @@ button {
     background-color: #dddddd;
 }
 
+.unused {
+    background-color: #f0f0f0;
+}
+
 button.operand {
     background-color: #fecc00;
 }
