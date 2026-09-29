@@ -143,12 +143,16 @@ function setupSymbols() {
     for (let i = 0; i < SYMBOLS.length; i++) {
         const btn = document.createElement("button");
         const symbol = SYMBOLS[i];
-        btn.innerText = symbol;
+        btn.innerText = symbol; 
         
         if (i == 0) btn.id = "ac";
-        else btn.classList.add("operand");
+        else btn.classList.add("symbol");
         btn.addEventListener("click", handleSymbol);
-        
+
+        if (i != 0 && i != SYMBOLS.length - 1) btn.addEventListener("click", () => {
+            btn.classList.add("active");
+        });
+
         symbolContainer.appendChild(btn);
     }
 };

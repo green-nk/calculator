@@ -71,16 +71,31 @@ button {
     border: 1px solid #cccccc;
     font-size: 20px;
     font-weight: 700;
+    cursor: pointer;
 }
 
 #ac {
+    color: #444444;
     background-color: #dddddd;
 }
 
 .unused {
     background-color: #f0f0f0;
+    cursor: default;
 }
 
-button.operand {
+button.symbol {
     background-color: #fecc00;
+}
+
+button:active, 
+#ac:active {
+    background-color: #f0f0f0;
+}
+
+button.symbol:active, 
+button.active {
+    border: 1px solid black;
+    background-color: #fafafa;
+    color: rgba(0, 0, 0, 0.6);
 }
