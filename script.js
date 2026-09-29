@@ -41,8 +41,15 @@ function removeActive() {
     if (activeOperand) activeOperand.classList.remove("active");
 }
 
-function formatNumDisplay(num) {
-    const numSplit = num.split('.');
+function formatNumDisplay(numString) {
+    const num = +numString;
+    let isNegative = false;
+    if (num < 0) {
+        isNegative = true;
+        numString = numString.slice(1);
+    }
+
+    const numSplit = numString.split('.');
     const whole = numSplit[0];
     const decimal = (numSplit.length > 1) ? numSplit[1] : null;
 
@@ -58,7 +65,10 @@ function formatNumDisplay(num) {
         i -= 3;
     }
 
-    return (decimal != null) ? format + '.' + decimal : format;
+    if (isNegative) format = '-' + format;
+    if (decimal) format = format + '.' + decimal;
+
+    return format;
 };
 
 function populateDigitGrid(digitContainer, handleDigit) {
@@ -112,7 +122,7 @@ function setupDigits() {
 
         const digit = event.currentTarget.textContent;
         numDisplay += digit;
-        displayPara.innerText = (numDisplay < 4) ? numDisplay: formatNumDisplay(numDisplay);
+        displayPara.innerText = formatNumDisplay(numDisplay);
 
         if (!isOperatorPressed) number = numDisplay;
         else otherNumber = numDisplay;
@@ -130,8 +140,9 @@ function setupSymbols() {
         
         function handleEqual() {
             let result = operate(+number, +otherNumber, operator);
+
             number = `${result}`;
-            displayPara.innerText = (number < 4) ? number : formatNumDisplay(number);
+            displayPara.innerText = formatNumDisplay(number);
 
             if (operator) numDisplay = "";
             isOperatorPressed = false;
@@ -147,7 +158,7 @@ function setupSymbols() {
                 let result = operate(+number, +otherNumber, operator);
 
                 number = `${result}`;
-                displayPara.innerText = (number < 4) ? number : formatNumDisplay(number);
+                displayPara.innerText = formatNumDisplay(number);
             }
 
             numDisplay = "";
