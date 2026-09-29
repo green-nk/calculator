@@ -114,6 +114,20 @@ function setupSymbols() {
             displayPara.innerText = numDisplay;
         };
 
+        function handleOperand() {
+            if (isOperatorPressed) {
+                let result = operate(+number, +otherNumber, operator);
+                displayPara.innerText = result;
+
+                number = `${result}`;
+            }
+
+            numDisplay = "";
+            isOperatorPressed = true;
+
+            operator = event.currentTarget.textContent;
+        }
+
         switch (symbol) {
             case '=':
                 handleEqual();
@@ -122,15 +136,7 @@ function setupSymbols() {
                 handleAllClear();
                 break;
             default:
-                if (isOperatorPressed) {
-                    let result = operate(+number, +otherNumber, operator);
-                    displayPara.innerText = result;
-                    number = `${result}`;
-                }
-
-                numDisplay = "";
-                isOperatorPressed = true;
-                operator = event.currentTarget.textContent;
+                handleOperand();
         }
     };
     
