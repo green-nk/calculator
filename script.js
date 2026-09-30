@@ -9,7 +9,7 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => (b == 0) ? NaN : a / b;
 
 function operate(a, b, operator) {
-    let result;
+    let result = null;
 
     switch (operator) {
         case '−':
@@ -143,16 +143,19 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
-            let result;
-            if (otherNumber) result = operate(+number, +otherNumber, operator);
+            let result = null;
+
+            if (otherNumber) {
+                result = operate(+number, +otherNumber, operator);
+                prevOtherNumber = otherNumber;
+            }
             else result = operate(+number, +prevOtherNumber, operator);
 
             numDisplay = `${result}`;
+            number = numDisplay;
             displayPara.innerText = formatNumDisplay(numDisplay);
 
             numDisplay = "";
-            number = `${result}`;
-            if (otherNumber) prevOtherNumber = otherNumber;
             otherNumber = "";
             isNumAssgined = false;
         };
@@ -163,7 +166,17 @@ function setupSymbols() {
         };
 
         function handleOperand() {
+            if (otherNumber) {
+                let result = operate(+number, +otherNumber, operator);
+                prevOtherNumber = otherNumber;
+
+                numDisplay = `${result}`;
+                number = numDisplay;
+                displayPara.innerText = formatNumDisplay(numDisplay);
+            }
+
             numDisplay = "";
+            otherNumber = "";
             isNumAssgined = true;
 
             operator = event.currentTarget.textContent;
