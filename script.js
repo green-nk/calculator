@@ -102,16 +102,15 @@ function populateDigitGrid(digitContainer, handleDigit) {
         }
     }
     
-    // Populate "0"
+    // Populate "0" and "."
     for (let i = 0; i < MAX_DIGIT_PER_ROW; i++) {
         const btn = document.createElement("button");
     
-        if (i != 0) btn.classList.add("unused");
-        else {
-            btn.innerText = i;
+        if (i == 0 || i == 1) {
+            btn.innerText = (i == 0) ? i : '.';
             btn.addEventListener("click", setActive);
             btn.addEventListener("click", handleDigit);
-        }
+        } else btn.classList.add("unused");
     
         digitContainer.appendChild(btn);
     }
@@ -124,7 +123,7 @@ function setupDigits() {
         const displayPara = document.querySelector(".display p");
         const digit = event.currentTarget.textContent;
         
-        if (numDisplay == "0") numDisplay = "";
+        if (numDisplay == "0" && digit != '.') numDisplay = "";
         numDisplay += digit;
         displayPara.innerText = formatNumDisplay(numDisplay);
 
