@@ -54,7 +54,7 @@ function formatNumDisplay(numString) {
     // Split whole and decimal if any
     const numSplit = numString.split('.');
     const whole = numSplit[0];
-    const decimal = (numSplit.length > 1) ? numSplit[1] : null;
+    const decimal = (numString.length == 1) ? null : (numSplit[1] === "") ? "0" : numSplit[1];
 
     // Format with ',' on every 3rd digit from the last
     let format = "";
@@ -70,7 +70,7 @@ function formatNumDisplay(numString) {
     }
 
     if (isNegative) format = '-' + format;
-    if (decimal) format = format + '.' + decimal;
+    if (decimal) format += '.' + ((decimal == "0") ? "" : decimal);
 
     return format;
 };
@@ -154,7 +154,7 @@ function setupSymbols() {
             number = numDisplay;
             displayPara.innerText = formatNumDisplay(numDisplay);
 
-            numDisplay = "";
+            numDisplay = "0";
             otherNumber = "";
             isNumAssgined = false;
         };
@@ -174,7 +174,7 @@ function setupSymbols() {
                 displayPara.innerText = formatNumDisplay(numDisplay);
             }
 
-            numDisplay = "";
+            numDisplay = "0";
             otherNumber = "";
             isNumAssgined = true;
 
