@@ -29,11 +29,12 @@ function operate(a, b, operator) {
 };
 
 function reset() {
-    numDisplay = '0';
-    isOperatorPressed = false;
+    numDisplay = "0";
     number = "";
-    otherNumber = "";
     operator = "";
+    prevOtherNumber = "";
+    otherNumber = "";
+    isNumAssgined = false;
 };
 
 function setActive() {
@@ -42,6 +43,7 @@ function setActive() {
 }
 
 function formatNumDisplay(numString) {
+    // Extract sign if any
     const num = +numString;
     let isNegative = false;
     if (num < 0) {
@@ -49,10 +51,12 @@ function formatNumDisplay(numString) {
         numString = numString.slice(1);
     }
 
+    // Split whole and decimal if any
     const numSplit = numString.split('.');
     const whole = numSplit[0];
     const decimal = (numSplit.length > 1) ? numSplit[1] : null;
 
+    // Format with ',' on every 3rd digit from the last
     let format = "";
     let j = -3;
     let i = whole.length - 1;
@@ -118,13 +122,13 @@ function setupDigits() {
 
     function handleDigit(event) {
         const displayPara = document.querySelector(".display p");
-        if (numDisplay == '0') numDisplay = "";
-
         const digit = event.currentTarget.textContent;
+        
+        if (numDisplay == "0") numDisplay = "";
         numDisplay += digit;
         displayPara.innerText = formatNumDisplay(numDisplay);
 
-        if (!isOperatorPressed) number = numDisplay;
+        if (!isNumAssgined) number = numDisplay;
         else otherNumber = numDisplay;
     };
 
@@ -139,13 +143,18 @@ function setupSymbols() {
         const displayPara = document.querySelector(".display p");
         
         function handleEqual() {
-            let result = operate(+number, +otherNumber, operator);
+            let result;
+            if (otherNumber) result = operate(+number, +otherNumber, operator);
+            else result = operate(+number, +prevOtherNumber, operator);
 
+            numDisplay = `${result}`;
+            displayPara.innerText = formatNumDisplay(numDisplay);
+
+            numDisplay = "";
             number = `${result}`;
-            displayPara.innerText = formatNumDisplay(number);
-
-            if (operator) numDisplay = "";
-            isOperatorPressed = false;
+            if (otherNumber) prevOtherNumber = otherNumber;
+            otherNumber = "";
+            isNumAssgined = false;
         };
 
         function handleAllClear() {
@@ -154,22 +163,15 @@ function setupSymbols() {
         };
 
         function handleOperand() {
-            if (isOperatorPressed) {
-                let result = operate(+number, +otherNumber, operator);
-
-                number = `${result}`;
-                displayPara.innerText = formatNumDisplay(number);
-            }
-
             numDisplay = "";
-            isOperatorPressed = true;
+            isNumAssgined = true;
 
             operator = event.currentTarget.textContent;
         }
 
         switch (symbol) {
             case '=':
-                handleEqual();
+                if (operator) handleEqual();
                 break;
             case "AC":
                 handleAllClear();
@@ -198,11 +200,12 @@ function setupSymbols() {
     }
 };
 
-let numDisplay = '0';
-let isOperatorPressed = false;
+let numDisplay = "0";
 let number = "";
-let otherNumber = "";
 let operator = "";
+let prevOtherNumber = "";
+let otherNumber = "";
+let isNumAssgined = false;
 
 setupDigits();
 setupSymbols();
