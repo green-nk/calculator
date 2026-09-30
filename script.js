@@ -124,7 +124,7 @@ function setupDigits() {
         const digit = event.currentTarget.textContent;
         
         if (numDisplay == "0" && digit != '.') numDisplay = "";
-        numDisplay += digit;
+        if (digit != '.' || !numDisplay.includes('.')) numDisplay += digit;
         displayPara.innerText = formatNumDisplay(numDisplay);
 
         if (!isNumAssgined) number = numDisplay;
