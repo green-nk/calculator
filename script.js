@@ -151,6 +151,15 @@ function setupDigits() {
                 displayPara.innerText = formatNumDisplay(numDisplay);
 
                 number = "";
+            } else {
+                numDisplay = number;
+                displayPara.innerText = formatNumDisplay(numDisplay);                
+
+                const symbol = [...document.querySelectorAll("button.symbol")]
+                    .find((symbol) => symbol.innerText == operator);
+                symbol.disabled = true;
+
+                otherNumber = "";
             }
         }
     }
