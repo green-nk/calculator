@@ -75,7 +75,7 @@ function formatNumDisplay(numString) {
     return format;
 };
 
-function populateDigitGrid(digitContainer, handleDigit) {
+function populateDigitGrid(digitContainer, handleDigit, handleBackspace) {
     const numRowUsed = Math.ceil(MAX_DIGIT / MAX_DIGIT_PER_ROW);
     const numSkips = TOTAL_DIGIT - numRowUsed * MAX_DIGIT_PER_ROW;
     
@@ -102,7 +102,7 @@ function populateDigitGrid(digitContainer, handleDigit) {
         }
     }
     
-    // Populate "0" and "."
+    // Populate "0", "." and "←"
     for (let i = 0; i < MAX_DIGIT_PER_ROW; i++) {
         const btn = document.createElement("button");
     
@@ -110,6 +110,10 @@ function populateDigitGrid(digitContainer, handleDigit) {
             btn.innerText = (i == 0) ? i : '.';
             btn.addEventListener("click", setActive);
             btn.addEventListener("click", handleDigit);
+        } else if (i == 2) {
+            btn.innerText = '←';
+            btn.addEventListener("click", setActive);
+            btn.addEventListener("click", handleBackspace);
         } else btn.classList.add("unused");
     
         digitContainer.appendChild(btn);
@@ -131,7 +135,27 @@ function setupDigits() {
         else otherNumber = numDisplay;
     };
 
-    populateDigitGrid(digitContainer, handleDigit);
+    function handleBackspace() {
+        const displayPara = document.querySelector(".display p");
+        numDisplay = (!isNumAssgined) ? number.slice(0, -1) : otherNumber.slice(0, -1);
+
+        if (numDisplay != "" && numDisplay != "-") {
+            displayPara.innerText = formatNumDisplay(numDisplay);
+
+            if (!isNumAssgined) number = numDisplay;
+            else otherNumber = numDisplay;
+
+        } else {
+            if (!isNumAssgined) {
+                numDisplay = "0";
+                displayPara.innerText = formatNumDisplay(numDisplay);
+
+                number = "";
+            }
+        }
+    }
+
+    populateDigitGrid(digitContainer, handleDigit, handleBackspace);
 };
 
 function setupSymbols() {
