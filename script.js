@@ -120,6 +120,21 @@ function populateDigitGrid(digitContainer, handleDigit, handleBackspace) {
     }
 };
 
+function handleKeyboard(event) {    
+    if (event.ctrlKey || event.metaKey || event.altKey) return;
+
+    let eventKey = event.key;
+    console.log(event.key);
+    if (event.key == "Escape") eventKey = "AC";
+    else if (event.key == "Backspace") eventKey = "←";
+    else if (event.key == "Enter") eventKey = "=";
+
+    const button = [...document.querySelectorAll("button")]
+        .find((button) => button.textContent == eventKey);
+    
+    if (button) button.click();
+};
+
 function setupDigits() {
     const digitContainer = document.querySelector(".digits");
 
@@ -252,5 +267,6 @@ let prevOtherNumber = "";
 let otherNumber = "";
 let isNumAssgined = false;
 
+document.addEventListener("keydown", handleKeyboard);
 setupDigits();
 setupSymbols();
